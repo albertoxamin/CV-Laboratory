@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
 
 def resize(frame, scale):
@@ -38,7 +37,8 @@ if __name__ == '__main__':
         np_corners = np.int0(corners)
         for i in np_corners:
             x, y = i.ravel()
-            cv2.circle(frame_copy, (x, y), 3, np.array([5*y, 2*y, 255-y], float))
+            cv2.circle(frame_copy, (x, y), 3,
+                       np.array([5*y, 2*y, 255-y], float))
 
         cv2.imshow('gff', frame_copy)
 
