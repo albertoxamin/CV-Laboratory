@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+
+img_obj = cv2.imread('box.png', 0)
+img_scene = cv2.imread('box_in_scene.png', 0)
+
+sift = cv2.xfeatures2d.SIFT_create(400)
+kp_obj, dsc_obj = sift.detectAndCompute(img_obj, None)
+kp_scene, dsc_scene = sift.detectAndCompute(img_scene, None)
+
+img_obj = cv2.drawKeypoints(
+    img_obj, kp_obj, img_obj, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+# cv2.imshow('key', img_obj)
+# cv2.waitKey(0)
+
+# Step 2: Matching descriptors between the two images
+matcher = cv2.BFMatcher(cv2.NORM_L2)
+matches = matcher.match(dsc_obj, dsc_scene)
+matches = sorted(matches, key = lambda x:x.distance)
+
+img3 = cv2.drawMatches(img_obj, kp_obj, img_scene, kp_scene,
+                       matches, None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+cv2.imshow('matches', img3)
+cv2.waitKey(0)
+
+img3 = cv2.drawMatches(img_obj, kp_obj, img_scene, kp_scene,
+                       matches[:10], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+cv2.imshow('matches', img3)
+cv2.waitKey(0)

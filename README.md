@@ -2,6 +2,10 @@
 
 Laboratories in python from the Computer Vision classes taught at UniTN
 
+recommended pip package
+
+`pip install opencv-contrib-python-nonfree`
+
 ## Useful resources
 
 * Official opencv python docs [link](https://docs.opencv.org/trunk/d6/d00/tutorial_py_root.html)
